@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <title>Crystal Collector Game</title>
+</head>
+
+<body>
+
+  <div class="class container">
+    <div class="header">
+      <h1>Crystal Collector</h1>
+    </div>
+    <div class="row">
+      <div class="section col-6">
+        <h3>How to play</h3>
+        <p>You will be given a random number at the start of the game.</p>
+        <p>There are four crystals below. By clicking on a crystal you will add a specific amount of points to your
+          total score</p>
+        <p>You win the game by macthing your total score to random number, you lose the game if your total score goes
+          above the random number</p>
+        <p>The valve of each crystal is hidden from you until you click on it.</p>
+        <p>Each time when the game starts, the game will change the values of each crystal</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 ranNum"> <strong>Random Number: <span id="ranNum"></span></strong>
+
+      </div>
+      <aside class="col-2 WL">
+        <p> wins: <span id="wins"></span></p>
+        <p>loses: <span id="loses"></span></p>
+      </aside>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2">
+        <img class="crystal-image"
+          src="http://cdn.playbuzz.com/cdn/35910209-2844-45c0-b099-f4d82878d54f/00261fda-4062-4096-81fd-8cf96b9034e8.jpg"
+          alt="crystal" height="150" width="150" id="img1" crystalValue="5">
+      </div>
+      <div class="col-sm-2">
+        <img class="crystal-image"
+          src="https://wow.zamimg.com/uploads/screenshots/normal/518006-ancient-mana-crystal-found-around-suramar.jpg"
+          alt="crystal" height="150" width="150" id="img2" crystalValue="15">
+      </div>
+      <div class="col-sm-2">
+        <img class="crystal-image"
+          src="http://2.bp.blogspot.com/-y_3CM411M6M/ULxJwOLVGBI/AAAAAAAABfI/F0R1nO8N6-A/s1600/blue-laser-crystal.jpg"
+          alt="crystal" height="150" width="150" id="img3" crstalValue="7">
+      </div>
+      <div class="col-sm-2">
+        <img class="crystal-image"
+          src="https://www.universetoday.com/wp-content/uploads/2012/07/Selfmade-Alum-Crystal.-Weight-5.01g-Source-JanDerChemiker-via-wikimedia-commons.jpg"
+          alt="crystal" height="150" width="150" id="img4" crystlValue="12">
+      </div>
+    </div>
+    <div class="row">
+      <p>
+        Your total score is: <span id="totalScore"></span>
+      </p>
+    </div>
+
+    <footer>
+
+    </footer>
+
+  </div>
+
+
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript">
+    // Create variables for each item
+    var ranNum = "";
+    var wins = 0;
+    var loses = 0;
+    var totalScore = 0;
+
+    // Create variables to post to HTML
+    var $ranNum = $("#ranNum");
+    var $wins = $("#wins");
+    var $loses = $("#loses");
+    var $totalScore = $("#totalScore");
+
+    // Create function for Random number and set total number back to 0
+
+    var ranNum = Math.floor(Math.random() * 75) + 5;
+    console.log(ranNum)
+
+    //  Create random number everytime the game starts 
+
+    $("#ranNum").text(ranNum)
+
+    // ---Set Attribute (value for each crystal) then Get Attribute (value for each crystal)---Create on click function and value for crystals --- 
+    // Setting the attribute from the HTML page
+
+    $("#img1").attr("data-crystalValue", 5);
+    $("#img2").attr("data-crystalValue", 15);
+    $("#img3").attr("data-crystalValue", 7);
+    $("#img4").attr("data-crystalValue", 12);
+
+    // Getting the attribute by creating a on click function
+
+    $(".crystal-image").on("click", function () {
+      var value = $(this).attr("data-crystalValue");
+      console.log(value)
+      value = parseInt(value);
+      totalScore += value
+
+      $("#totalScore").text(totalScore)
+
+      if (totalScore === ranNum) {
+
+        wins++;
+
+        // reset the score back to zero
+        totalScore = 0;
+        $("#ranNum").text(ranNum)
+
+        // write total score to screen
+        $("#totalScore").text(totalScore);
+
+        // reset random number
+       ranNum = ""
+
+
+
+        $("#wins").text(wins);
+
+
+      } else if (totalScore > ranNum) {
+
+        loses++;
+
+        // reset the score back to zero
+        totalScore = 0;
+
+        // write the total score to the screen
+        $("#totalScore").text(totalScore);
+
+         // reset the score back to zero
+         totalScore = 0;
+        $("#ranNum").text(ranNum)
+        
+
+        $("#loses").text(loses);
+      }
+
+    })
+    // Total score adds contineously
+
+
+    // Post wins and loses using if statements
+
+
+    // restart game
+  </script>
+</body>
+
+</html>
